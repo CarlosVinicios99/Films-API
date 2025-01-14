@@ -1,4 +1,7 @@
 import 'dotenv/config'
+import { CreateMoviesTable1736702463619 } from 'src/migrations/1736702463619-CreateMoviesTable'
+import { CreateDirectorsTable1736704518041 } from 'src/migrations/1736704518041-CreateDirectorsTable'
+import { AddDirectorIdInMovies1736817777177 } from 'src/migrations/1736817777177-AddDirectorIdInMovies'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
 export const dataSourceOptions: DataSourceOptions = {
@@ -15,5 +18,9 @@ export const dataSourceOptions: DataSourceOptions = {
 export const dataSource = new DataSource({
   ...dataSourceOptions,
   synchronize: false,
-  migrations: []
+  migrations: [
+    CreateMoviesTable1736702463619, 
+    CreateDirectorsTable1736704518041,
+    AddDirectorIdInMovies1736817777177
+  ]
 })
