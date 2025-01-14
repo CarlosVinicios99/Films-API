@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Director } from 'src/directors/entities/director.entity';
+import { Movie } from 'src/movies/entities/movie.entity';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { Director } from 'src/directors/entities/director.entity';
           username: configService.get('DB_USER'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
-          entities: [Director],
+          entities: [Movie, Director],
           synchronize: false
         }
       },
