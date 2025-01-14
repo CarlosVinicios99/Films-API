@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { Director } from 'src/directors/entities/director.entity'
+import { Director } from 'src/movies/entities/director.entity'
 import { CreateMoviesTable1736702463619 } from 'src/migrations/1736702463619-CreateMoviesTable'
 import { CreateDirectorsTable1736704518041 } from 'src/migrations/1736704518041-CreateDirectorsTable'
 import { AddDirectorIdInMovies1736817777177 } from 'src/migrations/1736817777177-AddDirectorIdInMovies'

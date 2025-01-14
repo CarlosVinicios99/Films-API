@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Director } from 'src/directors/entities/director.entity';
+import { Director } from 'src/movies/entities/director.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 
 @Module({

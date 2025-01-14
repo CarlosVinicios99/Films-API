@@ -1,5 +1,5 @@
-import { Director } from "src/directors/entities/director.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Director } from "./director.entity";
 
 @Entity('movies')
 export class Movie {
