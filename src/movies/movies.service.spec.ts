@@ -87,20 +87,20 @@ describe('CoursesService unit tests', () => {
 
   });
 
-  /*
-  it('should list all courses', async () => {
+  it('should list all movies', async () => {
     //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository
+    service['moviesRepository'] = mockMoviesRepository
 
     //@ts-expect-error defined part of methods
-    service['tagRepository'] = mockTagsRepository
+    service['directorsRepository'] = mockDirectorsRepository
 
     const courses = await service.findAll()
 
-    expect(mockCourseRepository.find).toHaveBeenCalled()
-    expect(expectOutputCourses).toStrictEqual(courses)
+    expect(mockMoviesRepository.find).toHaveBeenCalled()
+    expect([expectOutputMovie]).toStrictEqual(courses)
   })
 
+    /*
   it('should gets a course by id', async () => {
     //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository
@@ -113,6 +113,7 @@ describe('CoursesService unit tests', () => {
     expect(mockCourseRepository.findOne).toHaveBeenCalled()
     expect(expectOutputCourses).toStrictEqual(course)
   })
+
 
   it('should update a course', async () => {
     //@ts-expect-error defined part of methods
