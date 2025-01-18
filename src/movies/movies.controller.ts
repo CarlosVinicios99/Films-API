@@ -1,8 +1,14 @@
-import { Controller } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
+import { CreateMovieDto } from "./dto/CreateMovieDto";
 
 @Controller('movies')
 export class MoviesController {
 
-    constructor(){}
+  constructor(){}
     
+  @Post()
+  create(@Body() body: CreateMovieDto){
+    
+  }
+
 }
