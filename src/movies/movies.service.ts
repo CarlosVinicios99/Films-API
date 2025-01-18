@@ -11,14 +11,13 @@ export class MoviesService {
 
   private readonly logger: Logger = new Logger(MoviesService.name)
 
-  constructor(
-    @InjectRepository(Movie)
-    private readonly moviesRepository: Repository<Movie>,
+  @InjectRepository(Movie)
+  private readonly moviesRepository: Repository<Movie>
 
-    @InjectRepository(Director)
-    private readonly directorsRepository: Repository<Director>
-
-  ){}
+  @InjectRepository(Director)
+  private readonly directorsRepository: Repository<Director>
+  
+  constructor(){}
 
   private async findDirectorByName(name: string): Promise<Director> {
 
