@@ -140,21 +140,21 @@ describe('CoursesService unit tests', () => {
     expect(expectOutputMovie).toStrictEqual(movie)
   })
 
-  /*
-  it('should delete a course by id', async () => {
+  
+  it('should delete a movie by id', async () => {
     //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository
+    service['moviesRepository'] = mockMoviesRepository
 
     //@ts-expect-error defined part of methods
-    service['tagRepository'] = mockTagsRepository
+    service['directorsRepository'] = mockDirectorsRepository
 
-    const course = await service.remove(id)
+    const movie = await service.remove(id)
 
-    expect(mockCourseRepository.findOne).toHaveBeenCalled()
-    expect(mockCourseRepository.remove).toHaveBeenCalled()
+    expect(mockMoviesRepository.findById).toHaveBeenCalled()
+    expect(mockMoviesRepository.remove).toHaveBeenCalled()
     
-    expect(expectOutputCourses).toStrictEqual(course)
+    expect(expectOutputMovie).toStrictEqual(movie)
   })
-  */
+  
 
 });
