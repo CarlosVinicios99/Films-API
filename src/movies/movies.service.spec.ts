@@ -116,28 +116,31 @@ describe('CoursesService unit tests', () => {
   })
 
 
-  /*
-  it('should update a course', async () => {
-    //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository
+  
+  it('should update a movie', async () => {
 
     //@ts-expect-error defined part of methods
-    service['tagRepository'] = mockTagsRepository
+    service['moviesRepository'] = mockMoviesRepository
 
-    const updateCourseDTO: UpdateCourseDTO = {
-      name: 'test',
-      description: 'test description',
-      tags: ['nestjs']
+    //@ts-expect-error defined part of methods
+    service['directorsRepository'] = mockDirectorsRepository
+
+    const updateMovieDto: UpdateMovieDto = {
+      id,
+      title: 'interestelar',
+      category: 'ficção científica',
+      year: 2014
     }
 
-    const course = await service.update(id, updateCourseDTO)
+    const movie = await service.update(updateMovieDto)
 
-    expect(mockCourseRepository.preload).toHaveBeenCalled()
-    expect(mockCourseRepository.save).toHaveBeenCalled()
+    expect(mockMoviesRepository.preload).toHaveBeenCalled()
+    expect(mockMoviesRepository.save).toHaveBeenCalled()
 
-    expect(expectOutputCourses).toStrictEqual(course)
+    expect(expectOutputMovie).toStrictEqual(movie)
   })
 
+  /*
   it('should delete a course by id', async () => {
     //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository
