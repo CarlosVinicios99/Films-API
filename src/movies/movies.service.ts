@@ -90,7 +90,27 @@ export class MoviesService {
       this.logger.error(`erro ao buscar lista de filmes`, error)
       return new HttpException(`Erro ao buscar lista de filmes`, HttpStatus.BAD_REQUEST)
     }
+  }
 
+  public async findById(movieId: string): Promise<Movie | HttpException> {
+    try{
+      this.logger.verbose(`iniciando busca de filme por ID`)
+
+      this.logger.warn(`buscando filme por ID no banco`)
+      const movie: Movie = await this.moviesRepository.findOne({
+        where: {id: movieId}
+      }) 
+
+      if(!movie){
+        return new HttpException(`erro ao buscar filme por ID`, HttpStatus.BAD_REQUEST)
+      }
+
+      return movie
+    }
+    catch(error){
+      this.logger.error(`erro ao buscar filme por ID`, error)
+      throw new HttpException(`erro ao buscar filme por ID`, HttpStatus.SERVICE_UNAVAILABLE)
+    }
   }
 
 }
