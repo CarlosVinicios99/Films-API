@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { CreateMovieDto } from "./dto/CreateMovieDto";
 import { MoviesService } from "./movies.service";
 
@@ -12,6 +12,11 @@ export class MoviesController {
   @Post()
   create(@Body() body: CreateMovieDto){
     return this.moviesService.createMovie(body)
+  }
+
+  @Get()
+  findAll(@Query('page') page: number, @Query('limit') limit: number){
+    return this.moviesService.findAll(page, limit)
   }
 
 }

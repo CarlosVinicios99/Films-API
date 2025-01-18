@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Movie } from "./entities/movie.entity";
 import { Repository } from "typeorm";
@@ -44,27 +44,53 @@ export class MoviesService {
   }
 
 
-  public async createMovie(createMovieDto: CreateMovieDto): Promise<Movie> {
+  public async createMovie(createMovieDto: CreateMovieDto): Promise<Movie | HttpException>{
     this.logger.verbose(`iniciando cadastro de filme`)
 
-    this.logger.warn(`buscando pelo diretor do filme no banco`)
-    let director: Director = await this.findDirectorByName(createMovieDto.director.name)
+    try{
+      this.logger.warn(`buscando pelo diretor do filme no banco`)
+      let director: Director = await this.findDirectorByName(createMovieDto.director.name)
 
-    this.logger.verbose(`verificando se o diretor do filme já existe`)
-    if(!director){
-      this.logger.warn(`cadastrando diretor no banco`)
-      director = await this.createDirector(director)
+      this.logger.verbose(`verificando se o diretor do filme já existe`)
+      if(!director){
+        this.logger.warn(`cadastrando diretor no banco`)
+        director = await this.createDirector(director)
+      }
+
+      const newMovie = this.moviesRepository.create({
+        title: createMovieDto.title,
+        category: createMovieDto.category,
+        year: createMovieDto.year,
+        director: director
+      })
+
+
+      this.logger.warn(`salvando o filme no banco`)
+      return this.moviesRepository.save(newMovie)
+    }
+    catch(error){
+      this.logger.error(`erro ao cadastrar filme. `, error)
+      return new HttpException(`Erro ao cadastrar filme`, HttpStatus.BAD_REQUEST)
+    }
+  }
+
+  public async findAll(page: number = 1, limit: number = 5): Promise<Movie[] | HttpException>{
+
+    try{
+      this.logger.verbose(`iniciando busca por todos os filmes`)
+
+      this.logger.verbose(`criando o deslocamento da paginação`)
+      const skip: number = page <= 1 ? 0 : (page - 1) * limit
+
+      return this.moviesRepository.find({
+        skip
+      })
+    }
+    catch(error){
+      this.logger.error(`erro ao buscar lista de filmes`, error)
+      return new HttpException(`Erro ao buscar lista de filmes`, HttpStatus.BAD_REQUEST)
     }
 
-    const newMovie = this.moviesRepository.create({
-      title: createMovieDto.title,
-      category: createMovieDto.category,
-      year: createMovieDto.year,
-      director: director
-    })
-
-    this.logger.warn(`salvando o filme no banco`)
-    return this.moviesRepository.save(newMovie)
   }
 
 }
