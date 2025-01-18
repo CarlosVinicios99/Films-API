@@ -48,7 +48,8 @@ describe('CoursesService unit tests', () => {
 
     mockDirectorsRepository = {
       create: jest.fn().mockReturnValue(Promise.resolve(expectOutputDirector)),
-      find: jest.fn().mockReturnValue(Promise.resolve([expectOutputDirector]))
+      find: jest.fn().mockReturnValue(Promise.resolve([expectOutputDirector])),
+      save: jest.fn().mockReturnValue(Promise.resolve(expectOutputDirector))
     }
 
   });
@@ -57,30 +58,36 @@ describe('CoursesService unit tests', () => {
     expect(service).toBeDefined();
   });
 
-  /*
-  it('should create a course', async () => {
+
+  it('should create a movie', async () => {
 
     //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository
+    service['moviesRepository'] = mockMoviesRepositoryRepository
 
      //@ts-expect-error defined part of methods
-    service['tagRepository'] = mockTagsRepository
+    service['directorsRepository'] = mockDirectorsRepository
 
-    const createCourseDTO: CreateCourseDTO = {
-      name: 'test',
-      description: 'test description',
-      tags: ['nestjs']
+    const createMovieDto: CreateMovieDto = {
+      title: 'interestelar',
+      category: 'ficção científica',
+      year: 2014,
+      director: {
+        id,
+        name: 'christopher nolan',
+        dateOfBirth: new Date("1970-07-30T00:00:00Z"),
+        nationality: "inglaterra"
+      }
     }
 
-    const newCourse = await service.create(createCourseDTO)
+    const newMovie = await service.createMovie(createMovieDto)
 
     
-    expect(mockCourseRepository.save).toHaveBeenCalled()
-    expect(expectOutputCourses).toStrictEqual(newCourse)
+    expect(mockMoviesRepository.save).toHaveBeenCalled()
+    expect(expectOutputMovie).toStrictEqual(newMovie)
 
   });
 
-  
+  /*
   it('should list all courses', async () => {
     //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository
