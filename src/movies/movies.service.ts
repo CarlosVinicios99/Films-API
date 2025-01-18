@@ -4,6 +4,7 @@ import { Movie } from "./entities/movie.entity";
 import { Repository } from "typeorm";
 import { Director } from "./entities/director.entity";
 import { CreateMovieDto } from "./dto/CreateMovieDto";
+import { UpdateMovieDto } from "./dto/UpdateMovieDto";
 
 @Injectable()
 export class MoviesService {
@@ -113,7 +114,28 @@ export class MoviesService {
     }
   }
 
-  async remove(id: string){
+  async update(updateMovieDto: UpdateMovieDto){
+    try{
+      this.logger.verbose(`iniciando atualização de filme`)
+
+      this.logger.warn(`atualizando registro de filme no banco`)
+      const movie: Movie = await this.moviesRepository.preload({
+        ...updateMovieDto
+      })
+  
+      if(!movie){
+        throw new HttpException(`filme não encontrado`, HttpStatus.NOT_FOUND)
+      }
+  
+      return this.moviesRepository.save(movie)
+    }
+    catch(error){
+      this.logger.error(`erro na atualização de filme`, error)
+      throw new HttpException(`erro ao atualizar filme`, HttpStatus.BAD_REQUEST)
+    }
+  }
+
+  async remove(id: string): Promise<void | HttpException>{
     try{
       this.logger.verbose(`iniciando remoção de filme`)
 
@@ -130,7 +152,8 @@ export class MoviesService {
       }
 
       this.logger.warn(`removendo o filme no banco`)
-      return await this.moviesRepository.remove(movie)
+      await this.moviesRepository.remove(movie)
+      return
     }
     catch(error){
       this.logger.error(`erro ao remover filme`, error)
