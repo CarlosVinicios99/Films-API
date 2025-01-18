@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
 import { CreateMovieDto } from "./dto/CreateMovieDto";
 import { MoviesService } from "./movies.service";
 
@@ -22,6 +22,11 @@ export class MoviesController {
   @Get(':id')
   findById(@Param('id') id: string){
     return this.moviesService.findById(id)
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string){
+    return this.moviesService.remove(id)
   }
 
 }

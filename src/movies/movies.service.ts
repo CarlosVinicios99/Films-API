@@ -113,4 +113,29 @@ export class MoviesService {
     }
   }
 
+  async remove(id: string){
+    try{
+      this.logger.verbose(`iniciando remoção de filme`)
+
+      this.logger.warn(`buscando filme no banco`)
+      const movie: Movie = await this.moviesRepository.findOne({
+        where: {
+          id
+        }
+      }) 
+
+      this.logger.verbose(`checando se o filme existe no banco`)
+      if(!movie){
+        throw new HttpException(`filme com ID ${id} não encontrado!`, HttpStatus.NOT_FOUND)
+      }
+
+      this.logger.warn(`removendo o filme no banco`)
+      return await this.moviesRepository.remove(movie)
+    }
+    catch(error){
+      this.logger.error(`erro ao remover filme`, error)
+      throw new HttpException(`erro ao remover filme`, HttpStatus.SERVICE_UNAVAILABLE)
+    }
+  }
+
 }
