@@ -100,21 +100,23 @@ describe('CoursesService unit tests', () => {
     expect([expectOutputMovie]).toStrictEqual(courses)
   })
 
-    /*
-  it('should gets a course by id', async () => {
+
+  it('should gets a movie by id', async () => {
+  
     //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository
+    service['moviesRepository'] = mockMoviesRepository
 
     //@ts-expect-error defined part of methods
-    service['tagRepository'] = mockTagsRepository
+    service['directorsRepository'] = mockDirectorsRepository
 
-    const course = await service.findOne(id)
+    const course = await service.findById(id)
 
-    expect(mockCourseRepository.findOne).toHaveBeenCalled()
-    expect(expectOutputCourses).toStrictEqual(course)
+    expect(mockMoviesRepository.findOne).toHaveBeenCalled()
+    expect(expectOutputMovie).toStrictEqual(course)
   })
 
 
+  /*
   it('should update a course', async () => {
     //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository
