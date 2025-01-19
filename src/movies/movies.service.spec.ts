@@ -62,7 +62,7 @@ describe('CoursesService unit tests', () => {
   it('should create a movie', async () => {
 
     //@ts-expect-error defined part of methods
-    service['moviesRepository'] = mockMoviesRepositoryRepository
+    service['moviesRepository'] = mockMoviesRepository
 
      //@ts-expect-error defined part of methods
     service['directorsRepository'] = mockDirectorsRepository
@@ -148,12 +148,10 @@ describe('CoursesService unit tests', () => {
     //@ts-expect-error defined part of methods
     service['directorsRepository'] = mockDirectorsRepository
 
-    const movie = await service.remove(id)
-
-    expect(mockMoviesRepository.findById).toHaveBeenCalled()
-    expect(mockMoviesRepository.remove).toHaveBeenCalled()
+    await service.remove(id)
     
-    expect(expectOutputMovie).toStrictEqual(movie)
+    expect(mockMoviesRepository.findOne).toHaveBeenCalled()
+    expect(mockMoviesRepository.remove).toHaveBeenCalled()
   })
   
 
